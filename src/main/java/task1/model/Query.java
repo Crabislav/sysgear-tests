@@ -14,5 +14,4 @@ public class Query {
     public String getConvertTo() {
         return convertTo;
     }
-
 }
