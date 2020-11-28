@@ -8,6 +8,11 @@ public class Rule {
     public Rule() {
     }
 
+    public Rule(String from, String to) {
+        this.from = from;
+        this.to = to;
+    }
+
     public Rule(String from, String to, double coefficient) {
         this.from = from;
         this.to = to;
