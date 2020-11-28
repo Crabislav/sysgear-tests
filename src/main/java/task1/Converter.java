@@ -1,5 +1,6 @@
 package task1;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import task1.exceptions.BadRequestException;
 import task1.exceptions.EmptyFileException;
@@ -13,8 +14,23 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class Converter {
-    public static String convert(String jsonObj) throws IOException, EmptyFileException, NoRulesException {
-        //get rules
+    public static String convert(String jsonObj) throws Exception {
+        Rule[] rules = getRules();
+
+        Query query;
+        try {
+            query = Utils.getObjectMapperInstance().readValue(jsonObj, Query.class);
+        } catch (JsonParseException | JsonMappingException e) {
+            throw new BadRequestException("Can't create query from  (" + jsonObj + ")");
+        }
+        checkQueryRuleExistence(rules, query);
+        Utils.validateValues(query.getDistance().getUnit(), query.getConvertTo(), query.getDistance().getValue());
+
+        Distance result = new Distance(query.getConvertTo(), getConvertedValue(query, rules));
+        return Utils.getObjectMapperInstance().writeValueAsString(result);
+    }
+
+    private static Rule[] getRules() throws EmptyFileException, IOException, NoRulesException {
         File rulesFile = Paths.get(Utils.RULES_PATH).toFile();
         if (rulesFile.length() == 0) {
             throw new EmptyFileException("File (" + rulesFile.getName() + ") is empty");
@@ -26,22 +42,18 @@ public class Converter {
         } catch (JsonMappingException e) {
             throw new NoRulesException("Can't get rules from file (" + rulesFile.getName() + ")");
         }
+        return rules;
+    }
 
-        //create query
-        Query query = Utils.getObjectMapperInstance().readValue(jsonObj, Query.class);
+    private static void checkQueryRuleExistence(Rule[] rules, Query query) throws NoRulesException {
+        Rule requiredRule = new Rule(query.getDistance().getUnit(), query.getConvertTo());
 
-//        String convertTo = query.getConvertTo();
-//
-//        for (Rule rule : rules) {
-//            String ruleTo = rule.getTo();
-//
-//            if (!convertTo.equals(ruleTo) || !query.getDistance().getUnit().equals(rule.getFrom())) {
-//                throw new NoRulesException("Can't find suitable conversion rule");
-//            }
-//        }
-
-        Distance result = new Distance(query.getConvertTo(), getConvertedValue(query, rules));
-        return Utils.getObjectMapperInstance().writeValueAsString(result);
+        for (Rule rule : rules) {
+            if (rule.equals(requiredRule)) {
+                return;
+            }
+        }
+        throw new NoRulesException("Can't find suitable rule for query");
     }
 
     private static double getConvertedValue(Query query, Rule[] rules) {
