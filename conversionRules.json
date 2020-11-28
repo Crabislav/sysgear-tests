@@ -1,5 +1,107 @@
-[ {
-  "from" : "cm",
-  "to" : "m",
-  "coefficient" : 100.0
-} ]
+[
+  {
+    "from": "m",
+    "to": "cm",
+    "coefficient": 100
+  },
+  {
+    "from": "m",
+    "to": "ft",
+    "coefficient": 3.281
+  },
+  {
+    "from": "m",
+    "to": "in",
+    "coefficient": 39.37
+  },
+  {
+    "from": "m",
+    "to": "mm",
+    "coefficient": 1000
+  },
+  {
+    "from": "m",
+    "to": "yd",
+    "coefficient": 1.094
+  },
+  {
+    "from": "m",
+    "to": "km",
+    "coefficient": 1000
+  },
+  {
+    "from": "cm",
+    "to": "in",
+    "coefficient": 2.54
+  },
+  {
+    "from": "cm",
+    "to": "ft",
+    "coefficient": 30.48
+  },
+  {
+    "from": "cm",
+    "to": "mm",
+    "coefficient": 10
+  },
+  {
+    "from": "cm",
+    "to": "yd",
+    "coefficient": 91.44
+  },
+  {
+    "from": "cm",
+    "to": "km",
+    "coefficient": 100000
+  },
+  {
+    "from": "in",
+    "to": "ft",
+    "coefficient": 12
+  },
+  {
+    "from": "in",
+    "to": "mm",
+    "coefficient": 25.4
+  },
+  {
+    "from": "in",
+    "to": "yd",
+    "coefficient": 36
+  },
+  {
+    "from": "in",
+    "to": "km",
+    "coefficient": 39370
+  },
+  {
+    "from": "ft",
+    "to": "mm",
+    "coefficient": 305
+  },
+  {
+    "from": "ft",
+    "to": "yd",
+    "coefficient": 3
+  },
+  {
+    "from": "ft",
+    "to": "km",
+    "coefficient": 3281
+  },
+  {
+    "from": "mm",
+    "to": "yd",
+    "coefficient": 914
+  },
+  {
+    "from": "mm",
+    "to": "km",
+    "coefficient": 1000000
+  },
+  {
+    "from": "yd",
+    "to": "km",
+    "coefficient": 1094
+  }
+]
