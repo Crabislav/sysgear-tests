@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RuleProcessor {
     public static Rule addRule(String from, String to, double coefficient) throws IOException, BadRequestException {
-        validate(from, to, coefficient);
+        Utils.validateValues(from, to, coefficient);
 
         File rulesFile = Paths.get(Utils.RULES_PATH).toFile();
 
@@ -32,17 +32,4 @@ public class RuleProcessor {
         return rule;
     }
 
-    private static void validate(String from, String to, double coefficient) throws BadRequestException {
-        if (from == null || from.isEmpty()) {
-            throw new BadRequestException("Value \"from\" can't be null or empty. Your input is: " + from);
-        }
-
-        if (to == null || to.isEmpty()) {
-            throw new BadRequestException("Value \"to\" can't be null or empty. Your input is: " + to);
-        }
-
-        if (coefficient <= 0) {
-            throw new BadRequestException("Value \"coefficient\" must be greater than 0. Your input is: " + coefficient);
-        }
-    }
 }
