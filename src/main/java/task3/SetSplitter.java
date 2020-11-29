@@ -6,16 +6,21 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.util.Pair;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class SetSplitter {
     public static void main(String[] args) {
     }
 
+    @SuppressWarnings("unchecked")
     public static ObjectNode getSets(String src) throws IOException {
-        Integer[] values = Utils.fromJson(Utils.parse(src).get("set"), Integer[].class);
+        JsonNode setValuesNode = Utils.getObjectMapperInstance().readTree(src).get("set");
+        List<Integer> values = Utils.getObjectMapperInstance().treeToValue(setValuesNode, List.class);
 
-        Pair sets = findSets(Arrays.asList(values));
+        Pair<List<Integer>, List<Integer>> sets = findSets(values);
 
         JsonNode set1 = Utils.toJson(sets.getValue());
         JsonNode set2 = Utils.toJson(sets.getKey());
