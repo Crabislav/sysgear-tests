@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class SetSplitter {
-    public static void main(String[] args) throws IOException {
-        String test = "{\"set\": [4, 5, 6, 7, 8]}";
-        System.out.println(getSets(test));
+    public static void main(String[] args) {
     }
 
     public static ObjectNode getSets(String src) throws IOException {
