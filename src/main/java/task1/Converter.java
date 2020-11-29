@@ -14,14 +14,14 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class Converter {
-    public static String convert(String jsonObj) throws Exception {
+    public static String convert(String src) throws Exception {
         Rule[] rules = getRules();
 
         Query query;
         try {
-            query = Utils.getObjectMapperInstance().readValue(jsonObj, Query.class);
+            query = Utils.getObjectMapperInstance().readValue(src, Query.class);
         } catch (JsonParseException | JsonMappingException e) {
-            throw new BadRequestException("Can't create query from  (" + jsonObj + ")");
+            throw new BadRequestException("Can't create query from  (" + src + ")");
         }
         checkQueryRuleExistence(rules, query);
         Utils.validateValues(query.getDistance().getUnit(), query.getConvertTo(), query.getDistance().getValue());
