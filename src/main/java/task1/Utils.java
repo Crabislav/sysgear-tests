@@ -7,6 +7,9 @@ public class Utils {
     static final String RULES_PATH = "conversionRules.json";
     private static ObjectMapper mapper;
 
+    private Utils() {
+    }
+
     public static ObjectMapper getObjectMapperInstance() {
         if (mapper == null) {
             mapper = new ObjectMapper();

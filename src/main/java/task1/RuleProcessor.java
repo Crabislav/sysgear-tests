@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RuleProcessor {
+    private RuleProcessor() {
+    }
+
     public static Rule addRule(String from, String to, double coefficient) throws IOException, BadRequestException {
         Utils.validateValues(from, to, coefficient);
 
@@ -18,7 +21,8 @@ public class RuleProcessor {
 
         List<Rule> rules = new ArrayList<>();
         if (rulesFile.length() != 0) {
-            rules = Utils.getObjectMapperInstance().readValue(rulesFile, new TypeReference<List<Rule>>() {});
+            rules = Utils.getObjectMapperInstance().readValue(rulesFile, new TypeReference<List<Rule>>() {
+            });
         }
 
         Rule rule = new Rule(from, to, coefficient);

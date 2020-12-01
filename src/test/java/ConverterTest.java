@@ -8,6 +8,6 @@ public class ConverterTest {
     public void convertFromOneMeterToCmShouldReturn100() throws Exception {
         String testValue = "{\"distance\": {\"unit\": \"m\", \"value\": 1}, \"convert_to\": \"cm\"}";
         String expectedResult = "{\"unit\":\"cm\",\"value\":100.0}";
-        assertEquals(expectedResult, Converter.convert(testValue));
+        assertEquals(expectedResult, Converter.convertValues(testValue));
     }
 }

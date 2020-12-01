@@ -14,7 +14,10 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class Converter {
-    public static String convert(String src) throws Exception {
+    private Converter() {
+    }
+
+    public static String convertValues(String src) throws Exception {
         Rule[] rules = getRules();
 
         Query query;

@@ -9,6 +9,7 @@ import java.util.*;
 
 public class SetSplitter {
     public static void main(String[] args) {
+        //demo usage
     }
 
     @SuppressWarnings("unchecked")
