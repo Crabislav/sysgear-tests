@@ -1,49 +1,53 @@
 package task2;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import task2.exceptions.BadRequestException;
 import task2.exceptions.RuleNotFoundException;
 import task2.rules.Rule;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DataProcessor {
+    private DataProcessor() {
+    }
+
     public static void main(String[] args) {
         //demo usage
     }
 
+    public static JsonNode processData(String input) throws IOException, RuleNotFoundException, BadRequestException {
+        JsonNode root;
+        try {
+            root = Utils.getObjectMapperInstance().readTree(input);
+        } catch (JsonParseException e) {
+            throw new BadRequestException("Invalid input");
+        }
 
-    static String processData(File input) throws IOException, RuleNotFoundException, BadRequestException {
-        JsonNode root = Utils.getObjectMapperInstance().readTree(input);
+        if (root.get("data") == null) {
+            throw new BadRequestException("Input must have \"data\" block");
+        }
 
-        List<Object> data = getData(root);
+        if (root.get("condition") == null) {
+            return root;
+        }
+
+        List<LinkedHashMap<String, String>> data = Utils.getObjectMapperInstance().convertValue(root.get("data"), new TypeReference<>() {
+        });
         List<Rule> rules = getRules(root);
 
         rules.forEach(rule -> rule.applyRule(data));
 
-        //Return data as Json
-        // TODO: 30.11.2020 change output result
-        String result = "";
+        JsonNodeFactory factory = new JsonNodeFactory(false);
+
+        ObjectNode result = factory.objectNode();
+        result.set("result", Utils.getObjectMapperInstance().valueToTree(data));
+
         return result;
-    }
-
-    private static List<Object> getData(JsonNode root) throws BadRequestException {
-        if (root == null) {
-            throw new BadRequestException("Input node can't be null");
-        }
-
-        Utils.getObjectMapperInstance().convertValue(root.get("data"), new TypeReference<List<Object>>() {
-        });
-
-        // TODO: 30.11.2020 add logic for filling up data list
-        List<Object> data = new ArrayList<>();
-        return data;
     }
 
     private static List<Rule> getRules(JsonNode root) throws RuleNotFoundException, BadRequestException {
@@ -61,7 +65,7 @@ public class DataProcessor {
 
         for (String ruleName : ruleNames) {
             Rule rule = Rule.getRuleInstance(ruleName);
-            rule.setValue(parsedRulesValues.get(ruleName));
+            rule.setValue((List<Object>) parsedRulesValues.get(ruleName));
             rules.add(rule);
         }
         return rules;
