@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 public abstract class Rule {
-    private Object value;
+    private List<Object> value;
 
     public static Rule getRuleInstance(String ruleName) throws RuleNotFoundException {
         switch (ruleName) {
@@ -23,11 +23,11 @@ public abstract class Rule {
 
     public abstract void applyRule(List<LinkedHashMap<String, String>> rawData);
 
-    public Object getValue() {
+    public List<Object> getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(List<Object> value) {
         this.value = value;
     }
 
