@@ -8,7 +8,7 @@ import java.util.Set;
 public class Include extends Rule {
 
     @Override
-    public void applyRule(List<LinkedHashMap<String, String>> rawData) {
+    public void applyRule(List<LinkedHashMap<String, Object>> rawData) {
         List<Object> mapsWithIncludeValues = getValue();
 
         if (rawData.isEmpty()) {

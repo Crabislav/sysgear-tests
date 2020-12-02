@@ -36,7 +36,7 @@ public class DataProcessor {
             return root;
         }
 
-        List<LinkedHashMap<String, String>> data = Utils.getObjectMapperInstance().convertValue(root.get("data"), new TypeReference<>() {
+        List<LinkedHashMap<String, Object>> data = Utils.getObjectMapperInstance().convertValue(root.get("data"), new TypeReference<>() {
         });
         List<Rule> rules = getRules(root);
 

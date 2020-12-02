@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SortBy extends Rule {
     @Override
-    public void applyRule(List<LinkedHashMap<String, String>> rawData) {
+    public void applyRule(List<LinkedHashMap<String, Object>> rawData) {
         List<Object> keysForSortBy = getValue();
 
         if (keysForSortBy.isEmpty()) {

@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Exclude extends Rule {
     @Override
-    public void applyRule(List<LinkedHashMap<String, String>> rawData) {
+    public void applyRule(List<LinkedHashMap<String, Object>> rawData) {
         List<Object> mapsWithValuesForRule = getValue();
 
         if (rawData.isEmpty()) {
