@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class Converter {
+    public static void main(String[] args) {
+        //demo usage
+    }
+
     private Converter() {
     }
 
