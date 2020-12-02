@@ -2,6 +2,7 @@ package task2.rules;
 
 import task2.exceptions.RuleNotFoundException;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public abstract class Rule {
@@ -20,7 +21,7 @@ public abstract class Rule {
         }
     }
 
-    public abstract void applyRule(List<Object> rawData);
+    public abstract void applyRule(List<LinkedHashMap<String, String>> rawData);
 
     public Object getValue() {
         return value;
