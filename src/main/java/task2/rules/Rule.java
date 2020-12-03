@@ -21,7 +21,7 @@ public abstract class Rule {
         }
     }
 
-    public abstract void applyRule(List<LinkedHashMap<String, Object>> rawData);
+    public abstract void applyRule(List<LinkedHashMap<Object, Object>> rawData);
 
     public List<Object> getValue() {
         return value;

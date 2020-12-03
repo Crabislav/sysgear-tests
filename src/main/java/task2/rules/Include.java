@@ -8,7 +8,7 @@ import java.util.Set;
 public class Include extends Rule {
 
     @Override
-    public void applyRule(List<LinkedHashMap<String, Object>> rawData) {
+    public void applyRule(List<LinkedHashMap<Object, Object>> rawData) {
         List<Object> mapsWithIncludeValues = getValue();
 
         if (rawData.isEmpty()) {
@@ -21,7 +21,6 @@ public class Include extends Rule {
             }
 
             Set<?> mapKeys = ((Map<?, ?>) map).keySet();
-
             mapKeys.forEach(key -> rawData.removeIf(data -> !data.containsValue(((Map<?, ?>) map).get(key))));
         }
     }

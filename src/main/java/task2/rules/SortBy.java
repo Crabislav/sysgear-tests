@@ -1,20 +1,25 @@
 package task2.rules;
 
-import java.util.Comparator;
+import org.apache.commons.lang3.builder.CompareToBuilder;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 
 public class SortBy extends Rule {
     @Override
-    public void applyRule(List<LinkedHashMap<String, Object>> rawData) {
+    public void applyRule(List<LinkedHashMap<Object, Object>> rawData) {
         List<Object> keysForSortBy = getValue();
 
         if (keysForSortBy.isEmpty()) {
             return;
         }
 
-        for (Object key : keysForSortBy) {
-            rawData.sort(Comparator.comparing((LinkedHashMap<String, String> a) -> a.get(key)));
-        }
+        rawData.sort((o1, o2) -> {
+            CompareToBuilder compareToBuilder = new CompareToBuilder();
+            keysForSortBy.forEach(key -> compareToBuilder.append(o1.get(key), o2.get(key)));
+            return compareToBuilder.toComparison();
+        });
+
+
     }
 }
