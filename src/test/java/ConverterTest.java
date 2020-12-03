@@ -10,4 +10,11 @@ public class ConverterTest {
         String expectedResult = "{\"unit\":\"cm\",\"value\":100.0}";
         assertEquals(expectedResult, Converter.convertValues(testValue));
     }
+
+    @Test
+    public void convertFrom100CmShouldReturnOneMeter() throws Exception {
+        String testValue = "{\"distance\": {\"unit\": \"cm\", \"value\": 100}, \"convert_to\": \"m\"}";
+        String expectedResult = "{\"unit\":\"m\",\"value\":1.0}";
+        assertEquals(expectedResult, Converter.convertValues(testValue));
+    }
 }
