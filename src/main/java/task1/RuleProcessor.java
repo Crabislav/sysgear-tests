@@ -14,6 +14,10 @@ public class RuleProcessor {
     private RuleProcessor() {
     }
 
+    public static void main(String[] args) {
+        //demo usage
+    }
+
     public static Rule addRule(String from, String to, double coefficient) throws IOException, BadRequestException {
         Utils.validateValues(from, to, coefficient);
 
