@@ -67,4 +67,18 @@ public class DataProcessorTest {
         String invalidString = "I'm an invalid sting";
         DataProcessor.processData(invalidString);
     }
+
+    @Test
+    public void processDataShouldReturnValidResult() throws RuleNotFoundException, BadRequestException,
+            IOException {
+        String jsonWithSortByRule = "{\"data\":[{\"user\":\"mike@mail.com\",\"rating\":20,\"disabled\":false}," +
+                "{\"user\":\"greg@mail.com\",\"rating\":14,\"disabled\":false}," +
+                "{\"user\":\"john@mail.com\",\"rating\":25,\"disabled\":true}]," +
+                "\"condition\":{\"exclude\":[{\"disabled\":true}],\"sort_by\":[\"rating\"]}}";
+
+        String expected = "{\"result\":[{\"user\":\"greg@mail.com\",\"rating\":14,\"disabled\":false}," +
+                "{\"user\":\"mike@mail.com\",\"rating\":20,\"disabled\":false}]}";
+        String actual = DataProcessor.processData(jsonWithSortByRule).toString();
+        assertEquals(expected, actual);
+    }
 }
